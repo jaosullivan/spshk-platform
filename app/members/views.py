@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from tickets.models import Event
@@ -28,6 +29,7 @@ def calendar_view(request):
 def profile_view(request):
     return render(request, 'members/dashboard.html', {})
 
+@never_cache
 def register_view(request):
     if request.user.is_authenticated:
         return render(request, 'members/register.html', {
