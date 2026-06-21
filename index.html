@@ -154,7 +154,7 @@
         <a href="#about"    class="nav-link font-body text-sm font-medium text-parch/75">About</a>
         <a href="#benefits" class="nav-link font-body text-sm font-medium text-parch/75">Membership</a>
         <a href="/members/login/" class="nav-link font-body text-sm font-medium text-parch/55">Sign in</a>
-        <a href="#join" class="btn bg-gold hover:bg-amber-400 text-ink font-body text-sm font-semibold px-5 py-2.5 shadow-card">
+        <a href="/members/register/" class="btn bg-gold hover:bg-amber-400 text-ink font-body text-sm font-semibold px-5 py-2.5 shadow-card">
           Join Now
         </a>
       </div>
@@ -175,7 +175,7 @@
       <a href="#about"    class="block font-body text-sm font-medium text-parch/80 hover:text-parch transition-colors">About</a>
       <a href="#benefits" class="block font-body text-sm font-medium text-parch/80 hover:text-parch transition-colors">Membership</a>
       <a href="/members/login/" class="block font-body text-sm font-medium text-parch/55 hover:text-parch/80 transition-colors">Sign in</a>
-      <a href="#join" class="btn block w-full text-center bg-gold text-ink font-semibold px-5 py-2.5 shadow-card">Join Now</a>
+      <a href="/members/register/" class="btn block w-full text-center bg-gold text-ink font-semibold px-5 py-2.5 shadow-card">Join Now</a>
     </div>
   </nav>
 
@@ -207,7 +207,7 @@
         </p>
 
         <div class="flex flex-wrap gap-4">
-          <a href="#join" class="btn bg-gold hover:bg-amber-400 text-ink font-semibold px-7 py-3.5 text-sm shadow-card">
+          <a href="/members/register/" class="btn bg-gold hover:bg-amber-400 text-ink font-semibold px-7 py-3.5 text-sm shadow-card">
             Become a Member
           </a>
           <a href="#events" class="btn border border-parch/30 hover:border-parch/70 text-parch font-medium px-7 py-3.5 text-sm">
@@ -423,7 +423,7 @@
             </p>
           </div>
           <div class="mt-9">
-            <a href="#join"
+            <a href="/members/register/"
                class="btn bg-stout hover:bg-emerald text-parch font-medium px-6 py-3 text-sm shadow-card">
               Join the Society &rarr;
             </a>
@@ -500,63 +500,6 @@
         </div>
 
       </div>
-    </div>
-  </section>
-
-  <!-- ===================== JOIN CTA ===================== -->
-  <section id="join" class="bg-emerald py-24 lg:py-32 border-t divider-gold relative overflow-hidden">
-    <!-- Watermark shamrock -->
-    <svg class="absolute right-0 top-1/2 -translate-y-1/2 opacity-5 w-[480px] h-auto pointer-events-none" viewBox="0 0 400 480" fill="none" aria-hidden="true">
-      <circle cx="200" cy="120" r="105" fill="#F2E8D0"/>
-      <circle cx="127" cy="242" r="105" fill="#F2E8D0"/>
-      <circle cx="273" cy="242" r="105" fill="#F2E8D0"/>
-      <rect x="182" y="318" width="36" height="148" rx="18" fill="#F2E8D0"/>
-    </svg>
-
-    <div class="relative max-w-2xl mx-auto px-6 lg:px-10 text-center">
-      <p class="font-mono text-xs text-gold tracking-[.2em] uppercase mb-6">Join Us</p>
-      <h2 class="font-display font-bold text-parch mb-6"
-          style="font-size:clamp(2.5rem,6vw,4.75rem); letter-spacing:-.03em; line-height:1.05;">
-        Ready to join<br><em style="font-style:italic; font-weight:400;">the family?</em>
-      </h2>
-      <p class="font-body font-light text-parch/65 text-lg leading-relaxed mb-4 max-w-md mx-auto">
-        Lifetime membership is open to all who love Ireland and its culture. Just your name and email — that's all it takes.
-      </p>
-      <p class="font-mono text-xs text-gold tracking-widest uppercase mb-10">Event invitations · Newsletter · Local discounts</p>
-
-      <!-- Inline sign-up form -->
-      <form action="/members/register/" method="post"
-            class="max-w-md mx-auto text-left mb-6">
-        <div class="grid grid-cols-2 gap-3 mb-3">
-          <div>
-            <label for="join-first" class="block font-mono text-xs text-parch/60 tracking-widest uppercase mb-1.5">First Name</label>
-            <input id="join-first" name="first_name" type="text" required autocomplete="given-name"
-                   placeholder="Seán"
-                   class="w-full bg-stout/60 border border-parch/20 focus:border-gold/60 text-parch placeholder-parch/30 font-body text-sm px-4 py-3 rounded-sm outline-none transition-colors">
-          </div>
-          <div>
-            <label for="join-last" class="block font-mono text-xs text-parch/60 tracking-widest uppercase mb-1.5">Surname</label>
-            <input id="join-last" name="last_name" type="text" required autocomplete="family-name"
-                   placeholder="Murphy"
-                   class="w-full bg-stout/60 border border-parch/20 focus:border-gold/60 text-parch placeholder-parch/30 font-body text-sm px-4 py-3 rounded-sm outline-none transition-colors">
-          </div>
-        </div>
-        <div class="mb-4">
-          <label for="join-email" class="block font-mono text-xs text-parch/60 tracking-widest uppercase mb-1.5">Email Address</label>
-          <input id="join-email" name="email" type="email" required autocomplete="email"
-                 placeholder="sean@example.com"
-                 class="w-full bg-stout/60 border border-parch/20 focus:border-gold/60 text-parch placeholder-parch/30 font-body text-sm px-4 py-3 rounded-sm outline-none transition-colors">
-        </div>
-        <button type="submit"
-                class="btn w-full bg-gold hover:bg-amber-400 text-ink font-semibold px-8 py-4 shadow-card text-sm">
-          Become a Member
-        </button>
-      </form>
-
-      <p class="font-body text-xs text-parch/40">
-        Already a member?
-        <a href="http://localhost:8080/members/" class="text-parch/60 hover:text-parch underline transition-colors">Sign in &rarr;</a>
-      </p>
     </div>
   </section>
 
