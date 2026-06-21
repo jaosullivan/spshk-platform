@@ -8,6 +8,8 @@ namespace: spshk-local
 
 configMapGenerator:
   - name: spshk-production-env
+    options:
+      disableNameSuffixHash: true
     literals:
       - DJANGO_SETTINGS_MODULE=spshk.settings
       - ALLOWED_HOSTS=*
