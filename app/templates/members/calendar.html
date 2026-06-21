@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Events Calendar{% endblock %}
+
+{% block extra_head %}
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css' rel='stylesheet'>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+<style>
+  .fc-toolbar-title { color: #166534; font-weight: 700; }
+  .fc-button-primary { background-color: #009A44 !important; border-color: #166534 !important; }
+  .fc-button-primary:hover { background-color: #15803d !important; }
+  .fc-day-today { background-color: #f0fdf4 !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-2xl font-bold text-irish-800">Events Calendar</h1>
+  <span class="text-sm text-gray-500">Click an event to book tickets</span>
+</div>
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+  <div id="calendar"></div>
+</div>
+
+<div id="event-modal" class="hidden fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
+  <div class="bg-white rounded-2xl shadow-xl p-6 max-w-sm w-full mx-4">
+    <h2 id="modal-title" class="text-xl font-bold text-irish-800 mb-2"></h2>
+    <p id="modal-venue" class="text-sm text-gray-500 mb-1"></p>
+    <p id="modal-price" class="text-sm font-medium text-irish-700 mb-4"></p>
+    <div class="flex gap-3">
+      <a id="modal-book" href="#"
+         class="flex-1 text-center bg-irish-600 hover:bg-irish-700 text-white font-medium py-2 rounded-lg transition-colors">
+        Book Now
+      </a>
+      <button onclick="document.getElementById('event-modal').classList.add('hidden')"
+              class="flex-1 border border-gray-300 hover:bg-gray-50 py-2 rounded-lg transition-colors">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
+    initialView: 'dayGridMonth',
+    headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,listMonth' },
+    height: 'auto',
+    eventColor: '#009A44',
+    events: {
+      url: "{% url 'members:calendar_feed' %}",
+      failure: function () { alert('Could not load events.'); }
+    },
+    eventClick: function (info) {
+      const ep = info.event.extendedProps;
+      document.getElementById('modal-title').textContent = info.event.title;
+      document.getElementById('modal-venue').textContent = ep.venue || 'Venue TBC';
+      document.getElementById('modal-price').textContent = ep.price_hkd_cents
+        ? 'HK$' + (ep.price_hkd_cents / 100).toFixed(2)
+        : 'Free';
+      document.getElementById('modal-book').href = '/tickets/checkout/' + info.event.id + '/';
+      document.getElementById('event-modal').classList.remove('hidden');
+    }
+  });
+  calendar.render();
+});
+</script>
+{% endblock %}

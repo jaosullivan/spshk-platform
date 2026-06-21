@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+namespace: spshk-prod
+
+configMapGenerator:
+  - name: spshk-production-env
+    literals:
+      - DJANGO_SETTINGS_MODULE=spshk.settings
+      - ALLOWED_HOSTS=stpatrickshk.com,www.stpatrickshk.com
+      - SPSHK_DOMAIN=stpatrickshk.com
+
+secretGenerator:
+  - name: spshk-secrets
+    envs:
+      - secrets.env
+
+images:
+  - name: ghcr.io/your-org/spshk-platform/spshk-web
+    newTag: initial-bootstrap-placeholder

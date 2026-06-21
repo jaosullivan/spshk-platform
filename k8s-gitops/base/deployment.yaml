@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spshk-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: spshk-web
+  template:
+    metadata:
+      labels:
+        app: spshk-web
+    spec:
+      containers:
+        - name: spshk-web
+          image: ghcr.io/your-org/spshk-platform/spshk-web:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: spshk-production-env
+            - secretRef:
+                name: spshk-secrets
+          readinessProbe:
+            httpGet:
+              path: /healthz/
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz/
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 30

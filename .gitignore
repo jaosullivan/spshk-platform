@@ -1,0 +1,34 @@
+# Secrets — never commit
+secrets.env
+*.env
+.env
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+.venv-wsl/
+venv/
+
+# Django
+db.sqlite3
+staticfiles/
+media/
+
+# Node / frontend tooling
+node_modules/
+
+# Claude Code internals
+.claude/
+
+# Working files
+temporary screenshots/
+
+# Editor
+.vscode/
+.idea/
+*.swp

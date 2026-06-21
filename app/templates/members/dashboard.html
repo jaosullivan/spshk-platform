@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Member Dashboard{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+  <div class="lg:col-span-1">
+    <div class="bg-irish-800 text-white rounded-2xl p-6 shadow-lg">
+      <div class="text-xs uppercase tracking-widest text-irish-200 mb-1">Member Pass</div>
+      <h2 class="text-xl font-bold mb-0.5">{{ user.get_full_name|default:user.username }}</h2>
+      <p class="text-irish-300 text-xs font-mono mb-4">{{ user.membership_uuid }}</p>
+
+      {% if user.is_green_card_holder %}
+        <span class="inline-block bg-irish-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4">
+          &#10003; Green Card Member
+        </span>
+        {% if user.membership_activated_at %}
+          <p class="text-xs text-irish-200">Since {{ user.membership_activated_at|date:"d M Y" }}</p>
+        {% endif %}
+      {% endif %}
+
+      <div class="mt-4 flex items-center gap-2">
+        <span class="text-2xl font-bold">{{ user.loyalty_points }}</span>
+        <span class="text-irish-300 text-sm">loyalty points</span>
+      </div>
+
+      {% if user.member_qr %}
+        <div class="mt-5 bg-white rounded-xl p-2 inline-block">
+          <img src="{{ user.member_qr.url }}" alt="Member QR" class="w-32 h-32">
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="lg:col-span-2">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-lg font-bold text-irish-800">Your Tickets</h3>
+      <a href="{% url 'members:calendar' %}"
+         class="text-sm text-irish-700 hover:text-irish-900 font-medium">Browse events &rarr;</a>
+    </div>
+
+    {% if tickets %}
+      <div class="space-y-4">
+        {% for ticket in tickets %}
+          <div class="bg-white border border-gray-100 rounded-2xl shadow-sm p-4 flex items-center gap-4">
+            {% if ticket.qr_code %}
+              <img src="{{ ticket.qr_code.url }}" alt="Ticket QR" class="w-20 h-20 rounded-lg flex-shrink-0">
+            {% else %}
+              <div class="w-20 h-20 bg-gray-100 rounded-lg flex-shrink-0 flex items-center justify-center text-gray-300 text-2xl">&#9752;</div>
+            {% endif %}
+            <div class="min-w-0">
+              <p class="font-semibold text-gray-900 truncate">{{ ticket.event.title }}</p>
+              <p class="text-sm text-gray-500">{{ ticket.event.date|date:"D, d M Y · H:i" }}</p>
+              {% if ticket.event.venue %}
+                <p class="text-xs text-gray-400 mt-0.5">{{ ticket.event.venue }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="bg-white border border-dashed border-gray-200 rounded-2xl p-10 text-center text-gray-400">
+        <p class="text-4xl mb-2">&#9752;</p>
+        <p class="font-medium">No tickets yet</p>
+        <a href="{% url 'members:calendar' %}" class="mt-3 inline-block text-sm text-irish-700 hover:underline">
+          Browse upcoming events
+        </a>
+      </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

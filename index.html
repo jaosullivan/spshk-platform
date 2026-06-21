@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>St Patrick's Society Hong Kong — SPSHK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            stout:   '#003D1A',
+            emerald: '#00622B',
+            irish:   '#009A44',
+            gold:    '#C8922A',
+            parch:   '#F2E8D0',
+            ink:     '#0A1A0D',
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            body:    ['"DM Sans"', 'system-ui', 'sans-serif'],
+            mono:    ['"DM Mono"', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* Shamrock watermark in hero */
+    .shamrock-mark {
+      position: absolute;
+      right: -80px;
+      bottom: -80px;
+      width: 520px;
+      height: 580px;
+      opacity: 0.07;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Layered shadows — no flat shadow-md */
+    .shadow-card {
+      box-shadow: 0 1px 3px rgba(0,61,26,.10), 0 4px 14px rgba(0,61,26,.12), 0 14px 36px rgba(0,61,26,.06);
+    }
+    .shadow-card-hover {
+      box-shadow: 0 2px 6px rgba(0,61,26,.14), 0 8px 24px rgba(0,61,26,.16), 0 24px 56px rgba(0,61,26,.10);
+    }
+
+    /* Card lift */
+    .event-card {
+      transition: transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .28s ease;
+    }
+    .event-card:hover { transform: translateY(-5px); }
+    .event-card:hover { box-shadow: 0 2px 6px rgba(0,61,26,.14), 0 8px 24px rgba(0,61,26,.16), 0 24px 56px rgba(0,61,26,.10); }
+
+    /* Nav link underline */
+    .nav-link {
+      position: relative;
+      transition: color .15s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #C8922A;
+      transition: width .22s ease;
+    }
+    .nav-link:hover::after, .nav-link:focus-visible::after { width: 100%; }
+    .nav-link:hover, .nav-link:focus-visible { color: #C8922A; }
+    .nav-link:focus-visible { outline: 2px solid #C8922A; outline-offset: 4px; border-radius: 2px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .375rem;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-weight: 500;
+      transition: transform .15s ease, opacity .15s ease, background-color .15s ease, border-color .15s ease;
+      border-radius: 2px;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:focus-visible { outline: 2px solid #C8922A; outline-offset: 3px; }
+
+    /* Benefit card */
+    .benefit-card {
+      transition: transform .2s ease, background-color .2s ease;
+    }
+    .benefit-card:hover { transform: translateY(-3px); background-color: #00622B; }
+    .benefit-card:focus-visible { outline: 2px solid #C8922A; outline-offset: 3px; }
+
+    /* Pull quote */
+    .pull-quote {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: -0.025em;
+    }
+
+    /* Hero image overlay */
+    .hero-overlay {
+      background: linear-gradient(135deg, rgba(0,61,26,.9) 0%, rgba(0,98,43,.5) 55%, rgba(0,61,26,.2) 100%);
+    }
+
+    /* Stat numbers */
+    .stat-num {
+      font-family: 'DM Mono', monospace;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    /* Divider gold line */
+    .divider-gold {
+      border-color: rgba(200,146,42,.18);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .event-card, .benefit-card, .btn, .nav-link::after {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body class="font-body bg-white text-ink antialiased">
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-stout/96 backdrop-blur-sm border-b border-parch/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5 group" aria-label="SPSHK home">
+        <!-- Shamrock mark — 3 overlapping circles + stem -->
+        <svg width="26" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="13" cy="7"   r="6.5" fill="#009A44"/>
+          <circle cx="7"  cy="15.7" r="6.5" fill="#009A44"/>
+          <circle cx="19" cy="15.7" r="6.5" fill="#009A44"/>
+          <rect   x="10.5" y="19" width="5" height="11" rx="2.5" fill="#009A44"/>
+        </svg>
+        <span class="font-display font-bold text-xl text-parch" style="letter-spacing:-.02em;">SPSHK</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#events"   class="nav-link font-body text-sm font-medium text-parch/75">Events</a>
+        <a href="#about"    class="nav-link font-body text-sm font-medium text-parch/75">About</a>
+        <a href="#benefits" class="nav-link font-body text-sm font-medium text-parch/75">Membership</a>
+        <a href="http://localhost:8080/admin/login/" class="nav-link font-body text-sm font-medium text-parch/55">Sign in</a>
+        <a href="#join" class="btn bg-gold hover:bg-amber-400 text-ink font-body text-sm font-semibold px-5 py-2.5 shadow-card">
+          Join Now
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button id="nav-toggle" class="md:hidden text-parch p-2 btn" aria-label="Open menu" aria-expanded="false">
+        <svg width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true">
+          <rect y="0"  width="22" height="2" rx="1" fill="currentColor"/>
+          <rect y="7"  width="22" height="2" rx="1" fill="currentColor"/>
+          <rect y="14" width="22" height="2" rx="1" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div id="nav-mobile" class="hidden md:hidden bg-stout border-t border-parch/10 px-6 py-4 space-y-4">
+      <a href="#events"   class="block font-body text-sm font-medium text-parch/80 hover:text-parch transition-colors">Events</a>
+      <a href="#about"    class="block font-body text-sm font-medium text-parch/80 hover:text-parch transition-colors">About</a>
+      <a href="#benefits" class="block font-body text-sm font-medium text-parch/80 hover:text-parch transition-colors">Membership</a>
+      <a href="http://localhost:8080/admin/login/" class="block font-body text-sm font-medium text-parch/55 hover:text-parch/80 transition-colors">Sign in</a>
+      <a href="#join" class="btn block w-full text-center bg-gold text-ink font-semibold px-5 py-2.5 shadow-card">Join Now</a>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="grid lg:grid-cols-2" style="min-height:min(100vh,820px)">
+
+    <!-- Left: copy panel -->
+    <div class="relative flex flex-col justify-center px-8 lg:px-14 xl:px-20 pt-28 pb-20 bg-stout overflow-hidden">
+      <!-- Watermark shamrock -->
+      <svg class="shamrock-mark" viewBox="0 0 400 480" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="200" cy="120" r="105" fill="#009A44"/>
+        <circle cx="127" cy="242" r="105" fill="#009A44"/>
+        <circle cx="273" cy="242" r="105" fill="#009A44"/>
+        <rect x="182" y="318" width="36" height="148" rx="18" fill="#009A44"/>
+      </svg>
+
+      <div class="relative z-10 max-w-lg">
+        <p class="font-mono text-xs text-gold tracking-[.2em] uppercase mb-7">Est. 1911 &nbsp;·&nbsp; Hong Kong</p>
+
+        <h1 class="font-display font-bold text-parch mb-8"
+            style="font-size: clamp(3rem,7vw,5.5rem); letter-spacing:-.03em; line-height:1.05;">
+          Where Ireland<br>
+          <em class="font-display not-italic font-normal" style="font-size:.95em; font-style:italic; opacity:.9;">Meets</em><br>
+          Hong Kong
+        </h1>
+
+        <p class="font-body font-light text-parch/80 text-lg leading-relaxed mb-10 max-w-md">
+          For over a century, St&nbsp;Patrick's Society has been the heartbeat of Hong Kong's Irish community — uniting members through celebration, culture, and camaraderie.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="#join" class="btn bg-gold hover:bg-amber-400 text-ink font-semibold px-7 py-3.5 text-sm shadow-card">
+            Become a Member
+          </a>
+          <a href="#events" class="btn border border-parch/30 hover:border-parch/70 text-parch font-medium px-7 py-3.5 text-sm">
+            Upcoming Events
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: visual panel -->
+    <div class="relative hidden lg:block overflow-hidden"
+         style="background: radial-gradient(ellipse at 30% 40%, #00622B 0%, #003D1A 55%, #001A0C 100%);">
+
+      <!-- Large shamrock mark -->
+      <div class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+        <svg viewBox="0 0 400 480" fill="none"
+             class="w-[420px] opacity-10"
+             xmlns="http://www.w3.org/2000/svg">
+          <circle cx="200" cy="120" r="105" fill="#F2E8D0"/>
+          <circle cx="127" cy="242" r="105" fill="#F2E8D0"/>
+          <circle cx="273" cy="242" r="105" fill="#F2E8D0"/>
+          <rect x="182" y="318" width="36" height="148" rx="18" fill="#F2E8D0"/>
+        </svg>
+      </div>
+
+      <!-- Thin vertical gold line -->
+      <div class="absolute top-0 left-0 w-px h-full"
+           style="background: linear-gradient(to bottom, transparent, rgba(200,146,42,.3) 40%, rgba(200,146,42,.3) 60%, transparent)">
+      </div>
+
+      <!-- Decorative "1911" -->
+      <div class="absolute bottom-14 left-10 right-10 select-none" aria-hidden="true">
+        <p class="font-mono text-parch/40 text-xs tracking-[.18em] uppercase mb-2">Celebrating Irish culture since</p>
+        <p class="font-display font-bold text-parch leading-none"
+           style="font-size:8rem; letter-spacing:-.06em; opacity:.08;">1911</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS ===================== -->
+  <div class="bg-stout border-t divider-gold">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-14">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-y-10">
+
+        <div class="text-center">
+          <p class="stat-num text-5xl font-bold text-parch mb-2">1911</p>
+          <p class="font-mono text-xs text-gold tracking-widest uppercase mb-1">Year Founded</p>
+          <p class="font-body text-sm text-parch/45">Over a century of Irish spirit</p>
+        </div>
+
+        <div class="text-center md:border-x border-parch/10 md:px-10">
+          <p class="stat-num text-5xl font-bold text-parch mb-2">2,000<span class="text-gold text-3xl align-top mt-1 inline-block">+</span></p>
+          <p class="font-mono text-xs text-gold tracking-widest uppercase mb-1">Active Members</p>
+          <p class="font-body text-sm text-parch/45">From every corner of Ireland</p>
+        </div>
+
+        <div class="text-center">
+          <p class="stat-num text-5xl font-bold text-parch mb-2">30<span class="text-gold text-3xl align-top mt-1 inline-block">+</span></p>
+          <p class="font-mono text-xs text-gold tracking-widest uppercase mb-1">Events per Year</p>
+          <p class="font-body text-sm text-parch/45">Galas, socials, sport and more</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== EVENTS ===================== -->
+  <section id="events" class="bg-parch py-24 lg:py-32">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+      <header class="mb-14">
+        <p class="font-mono text-xs text-irish tracking-[.2em] uppercase mb-3">What's On</p>
+        <h2 class="font-display font-bold text-stout"
+            style="font-size:clamp(2.25rem,5vw,3.75rem); letter-spacing:-.03em; line-height:1.1;">
+          Upcoming Events
+        </h2>
+      </header>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+
+        <!-- Card 1 -->
+        <article class="event-card bg-white rounded shadow-card overflow-hidden">
+          <div class="relative">
+            <img src="https://placehold.co/480x260/003D1A/C8922A?text=Gala" alt="St Patrick's Day Gala Dinner" class="w-full h-48 object-cover">
+            <span class="absolute top-4 left-4 bg-gold text-ink font-mono text-xs font-bold px-3 py-1.5 rounded-sm">
+              17 MAR 2026
+            </span>
+          </div>
+          <div class="p-6">
+            <p class="font-mono text-xs text-irish tracking-widest uppercase mb-2">Signature Event</p>
+            <h3 class="font-display font-bold text-stout text-2xl leading-tight mb-3"
+                style="letter-spacing:-.02em;">
+              St Patrick's Day<br>Gala Dinner
+            </h3>
+            <p class="font-body text-sm text-ink/55 leading-relaxed mb-5">
+              Black-tie celebration at the Grand Hyatt. Live music, traditional cuisine, and an evening that defines the society's year.
+            </p>
+            <div class="flex items-center justify-between pt-5 border-t divider-gold">
+              <span class="font-mono text-sm font-bold text-stout">HK$1,280 <span class="font-mono text-xs text-ink/40 font-normal">/ person</span></span>
+              <a href="http://localhost:8080/tickets/"
+                 class="btn bg-stout hover:bg-emerald text-parch text-sm font-medium px-5 py-2.5">
+                Book Now
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="event-card bg-white rounded shadow-card overflow-hidden">
+          <div class="relative">
+            <img src="https://placehold.co/480x260/00622B/F2E8D0?text=BBQ" alt="Summer BBQ" class="w-full h-48 object-cover">
+            <span class="absolute top-4 left-4 bg-gold text-ink font-mono text-xs font-bold px-3 py-1.5 rounded-sm">
+              11 JUL 2026
+            </span>
+          </div>
+          <div class="p-6">
+            <p class="font-mono text-xs text-irish tracking-widest uppercase mb-2">Members' Social</p>
+            <h3 class="font-display font-bold text-stout text-2xl leading-tight mb-3"
+                style="letter-spacing:-.02em;">
+              Summer BBQ &amp;<br>Harbour Sunset
+            </h3>
+            <p class="font-body text-sm text-ink/55 leading-relaxed mb-5">
+              Rooftop terrace, harbour views, and good company. The perfect mid-year gathering for members and guests alike.
+            </p>
+            <div class="flex items-center justify-between pt-5 border-t divider-gold">
+              <span class="font-mono text-sm font-bold text-stout">HK$480 <span class="font-mono text-xs text-ink/40 font-normal">/ person</span></span>
+              <a href="http://localhost:8080/tickets/"
+                 class="btn bg-stout hover:bg-emerald text-parch text-sm font-medium px-5 py-2.5">
+                Book Now
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="event-card bg-white rounded shadow-card overflow-hidden">
+          <div class="relative">
+            <img src="https://placehold.co/480x260/003D1A/C8922A?text=Xmas" alt="Christmas Party" class="w-full h-48 object-cover">
+            <span class="absolute top-4 left-4 bg-gold text-ink font-mono text-xs font-bold px-3 py-1.5 rounded-sm">
+              04 DEC 2026
+            </span>
+          </div>
+          <div class="p-6">
+            <p class="font-mono text-xs text-irish tracking-widest uppercase mb-2">Annual Event</p>
+            <h3 class="font-display font-bold text-stout text-2xl leading-tight mb-3"
+                style="letter-spacing:-.02em;">
+              Christmas<br>Party 2026
+            </h3>
+            <p class="font-body text-sm text-ink/55 leading-relaxed mb-5">
+              The season's highlight. Festive dining, live entertainment, and the warmth of the Irish community at its finest.
+            </p>
+            <div class="flex items-center justify-between pt-5 border-t divider-gold">
+              <span class="font-mono text-sm font-bold text-stout">HK$780 <span class="font-mono text-xs text-ink/40 font-normal">/ person</span></span>
+              <a href="http://localhost:8080/tickets/"
+                 class="btn bg-stout hover:bg-emerald text-parch text-sm font-medium px-5 py-2.5">
+                Book Now
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="mt-12 text-center">
+        <a href="http://localhost:8080/calendar/"
+           class="btn border border-stout/25 hover:border-stout/60 text-stout font-body font-medium px-8 py-3 text-sm">
+          View all events &rarr;
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" class="py-24 lg:py-32 bg-white border-t divider-gold">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+      <!-- Pull quote -->
+      <div class="max-w-3xl mx-auto text-center mb-20">
+        <svg class="w-7 h-5 mx-auto mb-6 text-gold" fill="currentColor" viewBox="0 0 28 20" aria-hidden="true">
+          <path d="M0 20V12.5C0 8.4 1.2 5.1 3.7 2.6 6.2.9 9.1 0 12.5 0v4.2c-2.1.3-3.7 1.2-4.7 2.6C6.7 8.2 6.2 10 6.2 12H11V20H0zm17 0V12.5c0-4.2 1.2-7.5 3.7-10C23.2.9 26.1 0 29.5 0v4.2c-2.1.3-3.7 1.2-4.7 2.6-1.1 1.4-1.6 3.2-1.6 5.2H28V20H17z"/>
+        </svg>
+        <blockquote class="pull-quote text-stout"
+                    style="font-size:clamp(1.75rem,4vw,3rem);">
+          A little piece of Ireland, in the heart of Hong Kong.
+        </blockquote>
+      </div>
+
+      <!-- Two-column story -->
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <img
+            src="https://placehold.co/620x500/003D1A/F2E8D0?text=Since+1911"
+            alt="SPSHK members celebrating together"
+            class="w-full rounded shadow-card"
+          >
+        </div>
+        <div>
+          <p class="font-mono text-xs text-irish tracking-[.2em] uppercase mb-4">Our Story</p>
+          <h2 class="font-display font-bold text-stout mb-6"
+              style="font-size:clamp(2rem,4vw,3rem); letter-spacing:-.03em; line-height:1.1;">
+            Over a century of Irish community in Hong Kong
+          </h2>
+          <div class="space-y-5 font-body font-light text-ink/65 leading-[1.82] text-base">
+            <p>
+              St Patrick's Society Hong Kong was founded in 1911 by a small group of Irish merchants and civil servants who wanted to keep alive the traditions of home in a city that was fast becoming their second country.
+            </p>
+            <p>
+              Today, with over 2,000 members drawn from every corner of Ireland and the global Irish diaspora, SPSHK is the oldest continuously active Irish society in Asia — and still very much the social home of the Irish community in Hong Kong.
+            </p>
+            <p>
+              We host everything from the city's premier St Patrick's Day Gala to intimate pub quizzes, rugby watch parties, cultural evenings, and family picnics. Whatever brings you closer to the people and traditions you love about Ireland, you'll find it here.
+            </p>
+          </div>
+          <div class="mt-9">
+            <a href="#join"
+               class="btn bg-stout hover:bg-emerald text-parch font-medium px-6 py-3 text-sm shadow-card">
+              Join the Society &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== BENEFITS ===================== -->
+  <section id="benefits" class="bg-stout py-24 lg:py-32 border-t divider-gold">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+      <div class="text-center mb-16">
+        <p class="font-mono text-xs text-gold tracking-[.2em] uppercase mb-3">Membership</p>
+        <h2 class="font-display font-bold text-parch"
+            style="font-size:clamp(2.25rem,5vw,3.75rem); letter-spacing:-.03em; line-height:1.1;">
+          Why members love it
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+        <!-- Benefit 1 -->
+        <div class="benefit-card bg-emerald/30 rounded p-8 cursor-default" tabindex="0">
+          <svg class="w-11 h-11 mb-6" viewBox="0 0 44 50" fill="none" aria-hidden="true">
+            <circle cx="22" cy="11" r="10" fill="#009A44"/>
+            <circle cx="11" cy="27" r="10" fill="#009A44"/>
+            <circle cx="33" cy="27" r="10" fill="#009A44"/>
+            <rect x="19" y="34" width="6" height="16" rx="3" fill="#009A44"/>
+          </svg>
+          <h3 class="font-display font-bold text-parch text-2xl mb-3" style="letter-spacing:-.02em;">
+            Green Card Membership
+          </h3>
+          <p class="font-body font-light text-parch/60 leading-relaxed text-sm">
+            Your personalised digital member pass — a QR-coded Green Card for instant event check-in and exclusive member pricing at every SPSHK event.
+          </p>
+        </div>
+
+        <!-- Benefit 2 -->
+        <div class="benefit-card bg-emerald/30 rounded p-8 cursor-default" tabindex="0">
+          <svg class="w-11 h-11 mb-6" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+            <path d="M22 4L26.9 14.7L38.8 16.4L30.4 24.6L32.5 38L22 32.2L11.5 38L13.6 24.6L5.2 16.4L17.1 14.7L22 4Z" fill="#C8922A"/>
+          </svg>
+          <h3 class="font-display font-bold text-parch text-2xl mb-3" style="letter-spacing:-.02em;">
+            Loyalty Points
+          </h3>
+          <p class="font-body font-light text-parch/60 leading-relaxed text-sm">
+            Every event you attend earns points. Redeem them for early access, discounted tickets, and exclusive experiences throughout the year.
+          </p>
+        </div>
+
+        <!-- Benefit 3 -->
+        <div class="benefit-card bg-emerald/30 rounded p-8 cursor-default" tabindex="0">
+          <svg class="w-11 h-11 mb-6" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+            <rect x="3" y="9" width="38" height="32" rx="4" fill="#00622B"/>
+            <rect x="3" y="9" width="38" height="11" rx="4" fill="#003D1A"/>
+            <rect x="13" y="3" width="4" height="11" rx="2" fill="#F2E8D0"/>
+            <rect x="27" y="3" width="4" height="11" rx="2" fill="#F2E8D0"/>
+            <rect x="12" y="26" width="5" height="5" rx="1" fill="#F2E8D0"/>
+            <rect x="22" y="26" width="5" height="5" rx="1" fill="#C8922A"/>
+            <rect x="32" y="26" width="5" height="5" rx="1" fill="#F2E8D0"/>
+          </svg>
+          <h3 class="font-display font-bold text-parch text-2xl mb-3" style="letter-spacing:-.02em;">
+            Priority Booking
+          </h3>
+          <p class="font-body font-light text-parch/60 leading-relaxed text-sm">
+            Members get a 48-hour window before public sales open. Our flagship events sell out fast — Green Card membership ensures your seat at the table.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== JOIN CTA ===================== -->
+  <section id="join" class="bg-emerald py-24 lg:py-32 border-t divider-gold relative overflow-hidden">
+    <!-- Watermark shamrock -->
+    <svg class="absolute right-0 top-1/2 -translate-y-1/2 opacity-5 w-[480px] h-auto pointer-events-none" viewBox="0 0 400 480" fill="none" aria-hidden="true">
+      <circle cx="200" cy="120" r="105" fill="#F2E8D0"/>
+      <circle cx="127" cy="242" r="105" fill="#F2E8D0"/>
+      <circle cx="273" cy="242" r="105" fill="#F2E8D0"/>
+      <rect x="182" y="318" width="36" height="148" rx="18" fill="#F2E8D0"/>
+    </svg>
+
+    <div class="relative max-w-2xl mx-auto px-6 lg:px-10 text-center">
+      <p class="font-mono text-xs text-gold tracking-[.2em] uppercase mb-6">Join Us</p>
+      <h2 class="font-display font-bold text-parch mb-6"
+          style="font-size:clamp(2.5rem,6vw,4.75rem); letter-spacing:-.03em; line-height:1.05;">
+        Ready to join<br><em style="font-style:italic; font-weight:400;">the family?</em>
+      </h2>
+      <p class="font-body font-light text-parch/65 text-lg leading-relaxed mb-10 max-w-md mx-auto">
+        Membership is open to all who love Ireland and its culture. Join over 2,000 members and become part of Hong Kong's most welcoming Irish community.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="http://localhost:8080/admin/login/"
+           class="btn w-full sm:w-auto bg-gold hover:bg-amber-400 text-ink font-semibold px-8 py-4 shadow-card text-sm">
+          Become a Member
+        </a>
+        <a href="http://localhost:8080/admin/login/"
+           class="btn w-full sm:w-auto border border-parch/35 hover:border-parch/70 text-parch font-medium px-8 py-4 text-sm">
+          Sign In &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg-ink border-t divider-gold pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+
+        <!-- Brand -->
+        <div>
+          <div class="flex items-center gap-2.5 mb-4">
+            <svg width="22" height="26" viewBox="0 0 26 30" fill="none" aria-hidden="true">
+              <circle cx="13" cy="7"   r="6.5" fill="#009A44"/>
+              <circle cx="7"  cy="15.7" r="6.5" fill="#009A44"/>
+              <circle cx="19" cy="15.7" r="6.5" fill="#009A44"/>
+              <rect   x="10.5" y="19" width="5" height="11" rx="2.5" fill="#009A44"/>
+            </svg>
+            <span class="font-display font-bold text-lg text-parch" style="letter-spacing:-.02em;">SPSHK</span>
+          </div>
+          <p class="font-body font-light text-parch/45 text-sm leading-relaxed">
+            St Patrick's Society Hong Kong.<br>Celebrating Irish culture since 1911.
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <p class="font-mono text-xs text-gold tracking-[.15em] uppercase mb-5">Quick Links</p>
+          <ul class="space-y-3">
+            <li><a href="#events"   class="font-body text-sm text-parch/55 hover:text-parch transition-colors">Upcoming Events</a></li>
+            <li><a href="#about"    class="font-body text-sm text-parch/55 hover:text-parch transition-colors">About SPSHK</a></li>
+            <li><a href="#benefits" class="font-body text-sm text-parch/55 hover:text-parch transition-colors">Membership Benefits</a></li>
+            <li><a href="http://localhost:8080/admin/" class="font-body text-sm text-parch/55 hover:text-parch transition-colors">Member Portal</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <p class="font-mono text-xs text-gold tracking-[.15em] uppercase mb-5">Contact</p>
+          <ul class="space-y-3">
+            <li class="font-body text-sm text-parch/55">Hong Kong SAR, China</li>
+            <li><a href="mailto:info@spshk.hk" class="font-body text-sm text-parch/55 hover:text-parch transition-colors">info@spshk.hk</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t divider-gold pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="font-body text-xs text-parch/30">&copy; 2026 St Patrick's Society Hong Kong. All rights reserved.</p>
+        <p class="font-mono text-xs text-parch/18">Registered Society &nbsp;·&nbsp; PDPO Compliant</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const toggle = document.getElementById('nav-toggle');
+    const menu   = document.getElementById('nav-mobile');
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    // Close on link click
+    menu.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+      })
+    );
+  </script>
+
+</body>
+</html>
