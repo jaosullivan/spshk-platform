@@ -4,20 +4,58 @@ kind: Kustomization
 resources:
   - ../../base
 
-namespace: spshk-prod
+namespace: spshk-local
 
 configMapGenerator:
   - name: spshk-production-env
     literals:
       - DJANGO_SETTINGS_MODULE=spshk.settings
-      - ALLOWED_HOSTS=stpatrickshk.com,www.stpatrickshk.com
-      - SPSHK_DOMAIN=stpatrickshk.com
+      - ALLOWED_HOSTS=*
+      - SPSHK_DOMAIN=localhost
+      - DEBUG=True
+      - DEFAULT_FILE_STORAGE=django.core.files.storage.FileSystemStorage
+      - MEDIA_URL=/media/
+      - DB_HOST=postgres
+      - DB_PORT=5432
 
-secretGenerator:
-  - name: spshk-secrets
-    envs:
-      - secrets.env
+# spshk-secrets is pre-created in the cluster (gitignored credentials).
+# It is NOT managed by ArgoCD — create or rotate it manually:
+#   kubectl create secret generic spshk-secrets --from-env-file=secrets.env -n spshk-local
 
 images:
   - name: ghcr.io/your-org/spshk-platform/spshk-web
-    newTag: initial-bootstrap-placeholder
+    newName: spshk-web
+    newTag: local
+
+patches:
+  # Local cluster: pull from local Docker daemon, single replica
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: spshk-web
+      spec:
+        replicas: 1
+        template:
+          spec:
+            containers:
+              - name: spshk-web
+                imagePullPolicy: Never
+    target:
+      kind: Deployment
+      name: spshk-web
+  # Local cluster: migrate Job also uses local image
+  - patch: |-
+      apiVersion: batch/v1
+      kind: Job
+      metadata:
+        name: spshk-migrate
+      spec:
+        template:
+          spec:
+            containers:
+              - name: migrate
+                imagePullPolicy: Never
+    target:
+      kind: Job
+      name: spshk-migrate
