@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to SPSHK{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto text-center py-12">
+  <div class="bg-irish-50 border border-irish-200 rounded-2xl p-10 mb-6">
+    <span class="text-5xl block mb-4">&#9752;</span>
+    <h1 class="text-2xl font-bold text-irish-800 mb-3">You're in!</h1>
+    <p class="text-gray-600 leading-relaxed">
+      Your Green Card membership is active. Welcome to St&nbsp;Patrick's Society Hong Kong.
+    </p>
+  </div>
+
+  <div class="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 text-left mb-6">
+    <h2 class="font-semibold text-gray-800 mb-4 text-sm uppercase tracking-wider">What happens next</h2>
+    <ul class="space-y-3 text-sm text-gray-600">
+      <li class="flex items-start gap-3">
+        <span class="text-irish-600 font-bold mt-0.5">1.</span>
+        <span>Watch for event invitations — the Annual Ball, beach barbecues, quiz nights and more will come to your email.</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-irish-600 font-bold mt-0.5">2.</span>
+        <span>Your first monthly newsletter will arrive with upcoming Irish cultural activities across Hong Kong.</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-irish-600 font-bold mt-0.5">3.</span>
+        <span>Show your Green Card at partner bars and restaurants to claim your 10–15% member discount.</span>
+      </li>
+    </ul>
+  </div>
+
+  <a href="{% url 'members:dashboard' %}"
+     class="inline-block bg-irish-600 hover:bg-irish-700 text-white font-semibold px-8 py-3 rounded-lg transition-colors text-sm">
+    Go to your dashboard &rarr;
+  </a>
+
+  <p class="mt-6 text-xs text-gray-400">
+    Need help? <a href="mailto:info@stpatrickshk.com" class="text-irish-700 hover:underline">info@stpatrickshk.com</a>
+  </p>
+</div>
+{% endblock %}
