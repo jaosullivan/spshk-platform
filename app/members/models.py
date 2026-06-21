@@ -8,6 +8,7 @@ class CustomUser(AbstractUser):
     membership_activated_at = models.DateTimeField(null=True, blank=True)
     loyalty_points = models.PositiveIntegerField(default=0)
     member_qr = models.ImageField(upload_to='member_qr/', blank=True)
+    stripe_customer_id = models.CharField(max_length=255, blank=True)
     # HK-PDPO compliance fields
     consent_given_at = models.DateTimeField(null=True, blank=True)
     data_retention_until = models.DateField(null=True, blank=True)

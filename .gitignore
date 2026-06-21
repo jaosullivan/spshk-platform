@@ -25,6 +25,9 @@ node_modules/
 # Claude Code internals
 .claude/
 
+# Hypothesis test artifacts
+.hypothesis/
+
 # Working files
 temporary screenshots/
 

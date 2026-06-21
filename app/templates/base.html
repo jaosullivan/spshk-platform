@@ -37,9 +37,9 @@
         {% if user.is_authenticated %}
           <a href="{% url 'members:calendar' %}" class="hover:text-irish-100 transition-colors">Events</a>
           <a href="{% url 'members:dashboard' %}" class="hover:text-irish-100 transition-colors">Dashboard</a>
-          <a href="/admin/logout/" class="bg-irish-600 hover:bg-irish-700 px-3 py-1.5 rounded-lg transition-colors">Sign out</a>
+          <a href="/logout/" class="bg-irish-600 hover:bg-irish-700 px-3 py-1.5 rounded-lg transition-colors">Sign out</a>
         {% else %}
-          <a href="/admin/login/" class="bg-irish-600 hover:bg-irish-700 px-3 py-1.5 rounded-lg transition-colors">Sign in</a>
+          <a href="{% url 'members:login' %}" class="bg-irish-600 hover:bg-irish-700 px-3 py-1.5 rounded-lg transition-colors">Sign in</a>
         {% endif %}
       </div>
     </div>

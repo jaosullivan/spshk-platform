@@ -8,7 +8,7 @@
     <span class="text-4xl">&#9752;</span>
     <h1 class="text-3xl font-bold text-irish-800 mt-3 mb-2">Become a Member</h1>
     <p class="text-gray-500 text-sm">
-      Lifetime Green Card membership — event invitations, monthly newsletter, and local discounts across Hong Kong.
+      Lifetime Green Card membership — one-time fee of <strong>HKD $888</strong>, paid securely via Stripe.
     </p>
   </div>
 
@@ -18,6 +18,13 @@
         {{ message }}
       </div>
     {% endfor %}
+  {% endif %}
+
+  {% if already_signed_in %}
+  <div class="mb-6 p-4 rounded-lg bg-amber-50 text-amber-900 border border-amber-200 text-sm">
+    You are already signed in as <strong>{{ signed_in_name }}</strong>.
+    <a href="/logout/" class="underline font-medium ml-1">Sign out</a> to register a new account.
+  </div>
   {% endif %}
 
   <div class="bg-white border border-gray-100 rounded-2xl shadow-sm p-8">
@@ -41,7 +48,7 @@
         </div>
       </div>
 
-      <div class="mb-6">
+      <div class="mb-4">
         <label for="email" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Email Address</label>
         <input id="email" name="email" type="email" required autocomplete="email"
                value="{{ post.email|default:'' }}"
@@ -50,16 +57,30 @@
         <p class="mt-1.5 text-xs text-gray-400">You'll receive event invitations and your monthly newsletter here.</p>
       </div>
 
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div>
+          <label for="password" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Password</label>
+          <input id="password" name="password" type="password" required autocomplete="new-password"
+                 class="w-full border border-gray-200 focus:border-irish-600 focus:ring-1 focus:ring-irish-600 rounded-lg px-4 py-3 text-sm outline-none transition-colors">
+          <p class="mt-1.5 text-xs text-gray-400">Minimum 8 characters.</p>
+        </div>
+        <div>
+          <label for="confirm_password" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Confirm Password</label>
+          <input id="confirm_password" name="confirm_password" type="password" required autocomplete="new-password"
+                 class="w-full border border-gray-200 focus:border-irish-600 focus:ring-1 focus:ring-irish-600 rounded-lg px-4 py-3 text-sm outline-none transition-colors">
+        </div>
+      </div>
+
       <button type="submit"
               class="w-full bg-irish-600 hover:bg-irish-700 text-white font-semibold py-3.5 rounded-lg transition-colors text-sm">
-        Register for Green Card Membership
+        Continue to Payment →
       </button>
     </form>
 
     <div class="mt-6 pt-6 border-t border-gray-100 text-center">
       <p class="text-sm text-gray-400">
         Already a member?
-        <a href="/admin/login/" class="text-irish-700 hover:underline font-medium">Sign in</a>
+        <a href="{% url 'members:login' %}" class="text-irish-700 hover:underline font-medium">Sign in</a>
       </p>
     </div>
   </div>

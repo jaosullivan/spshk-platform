@@ -307,7 +307,7 @@
             </p>
             <div class="flex items-center justify-between pt-5 border-t divider-gold">
               <span class="font-mono text-sm font-bold text-stout">HK$1,280 <span class="font-mono text-xs text-ink/40 font-normal">/ person</span></span>
-              <a href="http://localhost:8080/tickets/"
+              <a href="/tickets/"
                  class="btn bg-stout hover:bg-emerald text-parch text-sm font-medium px-5 py-2.5">
                 Book Now
               </a>
@@ -334,7 +334,7 @@
             </p>
             <div class="flex items-center justify-between pt-5 border-t divider-gold">
               <span class="font-mono text-sm font-bold text-stout">HK$480 <span class="font-mono text-xs text-ink/40 font-normal">/ person</span></span>
-              <a href="http://localhost:8080/tickets/"
+              <a href="/tickets/"
                  class="btn bg-stout hover:bg-emerald text-parch text-sm font-medium px-5 py-2.5">
                 Book Now
               </a>
@@ -361,7 +361,7 @@
             </p>
             <div class="flex items-center justify-between pt-5 border-t divider-gold">
               <span class="font-mono text-sm font-bold text-stout">HK$780 <span class="font-mono text-xs text-ink/40 font-normal">/ person</span></span>
-              <a href="http://localhost:8080/tickets/"
+              <a href="/tickets/"
                  class="btn bg-stout hover:bg-emerald text-parch text-sm font-medium px-5 py-2.5">
                 Book Now
               </a>
@@ -372,7 +372,7 @@
       </div>
 
       <div class="mt-12 text-center">
-        <a href="http://localhost:8080/calendar/"
+        <a href="/calendar/"
            class="btn border border-stout/25 hover:border-stout/60 text-stout font-body font-medium px-8 py-3 text-sm">
           View all events &rarr;
         </a>
@@ -527,6 +527,7 @@
       <!-- Inline sign-up form -->
       <form action="/members/register/" method="post"
             class="max-w-md mx-auto text-left mb-6">
+        {% csrf_token %}
         <div class="grid grid-cols-2 gap-3 mb-3">
           <div>
             <label for="join-first" class="block font-mono text-xs text-parch/60 tracking-widest uppercase mb-1.5">First Name</label>
@@ -555,7 +556,7 @@
 
       <p class="font-body text-xs text-parch/40">
         Already a member?
-        <a href="http://localhost:8080/members/" class="text-parch/60 hover:text-parch underline transition-colors">Sign in &rarr;</a>
+        <a href="/members/" class="text-parch/60 hover:text-parch underline transition-colors">Sign in &rarr;</a>
       </p>
     </div>
   </section>
@@ -588,7 +589,7 @@
             <li><a href="#events"   class="font-body text-sm text-parch/55 hover:text-parch transition-colors">Upcoming Events</a></li>
             <li><a href="#about"    class="font-body text-sm text-parch/55 hover:text-parch transition-colors">About SPSHK</a></li>
             <li><a href="#benefits" class="font-body text-sm text-parch/55 hover:text-parch transition-colors">Membership Benefits</a></li>
-            <li><a href="http://localhost:8080/admin/" class="font-body text-sm text-parch/55 hover:text-parch transition-colors">Member Portal</a></li>
+            <li><a href="/admin/" class="font-body text-sm text-parch/55 hover:text-parch transition-colors">Member Portal</a></li>
           </ul>
         </div>
 
